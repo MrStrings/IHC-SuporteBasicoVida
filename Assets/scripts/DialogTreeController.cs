@@ -16,21 +16,32 @@ public class DialogTreeController : MonoBehaviour {
 		situation.text = "A pessoa está consciente?";
 		choice [0].text = "Sim";
 		choice [1].text = "Não";
-		situationNumber = 0;
+		situationNumber = 0; //situacao inicial
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (situationNumber == 0) {
-			if (Input.GetKeyDown (KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) {
-				situationNumber = 1;
-				situation.text = "A pessoa está respirando?";
-			}
-
-		} else if (situationNumber == 1) {
-			if (Input.GetKeyDown (KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) {
-				SceneManager.LoadScene ("MinigameMassagem");
-			}
-		}
+        if (situationNumber == 0) {
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                situation.text = "A pessoa está respirando?";
+                situationNumber = 1; 
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow)){
+                situation.text = "A pessoa possui algo na boca?";
+                situationNumber = 3;
+            }
+        }
+        else if (situationNumber == 1) {
+            if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                SceneManager.LoadScene("MinigameMassagem");
+                situationNumber = 2;
+            }
+       }
+       else if (situationNumber == 3) {
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                SceneManager.LoadScene("MinigameTiraBoca");
+                situationNumber = 4;
+            }
+        }
 	}
 }
