@@ -9,6 +9,8 @@ public class RhythmButtonHit : MonoBehaviour {
 	public float speed;
 	public float currentValue;
 
+	public float pressCount;
+
 
 	[HideInInspector]
 	public float timeInMinimum;
@@ -17,6 +19,7 @@ public class RhythmButtonHit : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		currentValue = max;
+		pressCount = 0;
 	}
 
 	// Update is called once per frame
@@ -31,6 +34,7 @@ public class RhythmButtonHit : MonoBehaviour {
 		currentValue = Mathf.Max (min, currentValue - (Time.deltaTime * speed));
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
+			pressCount++;
 			if (currentValue > maxForScore) {
 				//Subtract points;
 			}
