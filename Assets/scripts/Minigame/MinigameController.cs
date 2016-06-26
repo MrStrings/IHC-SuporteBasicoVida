@@ -15,6 +15,8 @@ public class MinigameController : MonoBehaviour {
 	void Start () {
 		button = GetComponent<RhythmButtonHit> ();
 		breathButton.SetActive (false);
+
+		breathCount = 0;
 	}
 	
 	// Update is called once per frame
@@ -36,6 +38,7 @@ public class MinigameController : MonoBehaviour {
 
 				if (hit && hit.gameObject == breathButton) {
 					breathButton.SetActive (false);
+					breathCount++;
 				}
 			}
 

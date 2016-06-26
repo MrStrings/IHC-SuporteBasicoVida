@@ -5,21 +5,24 @@ public class RhythmButtonHit : MonoBehaviour {
 
 	public float min, max;
 	public float maxForScore;
-	public float subtractWhithEarlyPress;
 	public float speed;
-	public float currentValue;
 
+	public float subtractPointsWhithEarlyPress;
+	public float numPointsToLoseWhenLate;
+
+	public float minTimeForPointLoosing;
+	private float lastPointsLost;
+
+	public float currentValue;
 	public float pressCount;
 
-
-	[HideInInspector]
-	public float timeInMinimum;
 
 
 	// Use this for initialization
 	void Start () {
 		currentValue = max;
 		pressCount = 0;
+		lastPointsLost = -minTimeForPointLoosing;
 	}
 
 	// Update is called once per frame
@@ -36,16 +39,15 @@ public class RhythmButtonHit : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			pressCount++;
 			if (currentValue > maxForScore) {
-				//Subtract points;
+				PointsManager.points -= subtractPointsWhithEarlyPress;
 			}
 			currentValue = max;
 		}
 
 
-		if (currentValue == min) {
-			timeInMinimum += Time.deltaTime;
-		} else {
-			timeInMinimum = 0;
+		if (currentValue == min && Time.timeSinceLevelLoad > lastPointsLost + minTimeForPointLoosing) {
+			minTimeForPointLoosing = Time.timeSinceLevelLoad;
+			PointsManager.points -= numPointsToLoseWhenLate;
 		}
 	}
 }

@@ -4,9 +4,11 @@ using System.Collections;
 public class PointsManager : MonoBehaviour {
 
 
-	public static float points;
 
-	public static float initialPoints;
+	public static float points;
+	public float points_local;
+
+	public float initialPoints;
 	public bool resetOnSceneLoad;
 
 
@@ -18,6 +20,7 @@ public class PointsManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		points_local = points;
 		if (points <= 0) {
 			//GAME OVER
 		}
