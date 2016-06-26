@@ -33,14 +33,24 @@ public class DialogTreeController : MonoBehaviour {
         }
         else if (situationNumber == 1) {
             if (Input.GetKeyDown(KeyCode.RightArrow)) {
-                SceneManager.LoadScene("MinigameMassagem");
+                situation.text = "Faça massagem cardiaca";
+                //SceneManager.LoadScene("MinigameMassagem");
                 situationNumber = 2;
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                situation.text = "Vire a pessoa de lado";
+                //SceneManager.LoadScene("MinigameVira");
             }
        }
        else if (situationNumber == 3) {
             if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-                SceneManager.LoadScene("MinigameTiraBoca");
+                situation.text = "Tire essa parada da boca da pessoa";
+                //SceneManager.LoadScene("MinigameTiraBoca");
                 situationNumber = 4;
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                situation.text = "Verifique a respiração";
+                situationNumber = 0;
             }
         }
 	}
