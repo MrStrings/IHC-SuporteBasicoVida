@@ -4,8 +4,11 @@ using System.Collections;
 public class RhythmButtonHit : MonoBehaviour {
 
 	public float min, max;
+	public float maxForScore;
+	public float subtractWhithEarlyPress;
 	public float speed;
 	public float currentValue;
+
 
 	[HideInInspector]
 	public float timeInMinimum;
@@ -28,6 +31,9 @@ public class RhythmButtonHit : MonoBehaviour {
 		currentValue = Mathf.Max (min, currentValue - (Time.deltaTime * speed));
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
+			if (currentValue > maxForScore) {
+				//Subtract points;
+			}
 			currentValue = max;
 		}
 
