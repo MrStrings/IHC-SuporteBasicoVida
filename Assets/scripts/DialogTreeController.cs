@@ -49,7 +49,7 @@ public class DialogTreeController : MonoBehaviour {
                 situationNumber = 4;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-                situation.text = "Verifique a respiração";
+                situation.text = "Verifique a respiração. Verificou?";
                 situationNumber = 0;
             }
         }
