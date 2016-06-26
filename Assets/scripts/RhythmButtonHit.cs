@@ -3,15 +3,13 @@ using System.Collections;
 
 public class RhythmButtonHit : MonoBehaviour {
 
-	public enum State {Increasing, Decreasing};
-
 	public float min, max;
 	public float speed;
-	public float min_correct, max_correct;
+	public float minimumForPontuation;
 	public float currentValue;
 
-
-	public State state = State.Decreasing;
+	[HideInInspector]
+	public float timeInMinimum;
 
 
 	// Use this for initialization
@@ -27,20 +25,18 @@ public class RhythmButtonHit : MonoBehaviour {
 
 
 	void UpdateValue() {
-		if (state == State.Decreasing) {
-			if (currentValue < min) {
-				state = State.Increasing;
-			}
 
-			currentValue -= (Time.deltaTime * speed);
+		currentValue = Mathf.Max (min, currentValue - (Time.deltaTime * speed));
 
-		} else {
-			if (currentValue > max) {
-				state = State.Increasing;
-			}
-
-			currentValue += (Time.deltaTime * speed);
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			currentValue = max;
 		}
 
+
+		if (currentValue == min) {
+			timeInMinimum += Time.deltaTime;
+		} else {
+			timeInMinimum = 0;
+		}
 	}
 }
