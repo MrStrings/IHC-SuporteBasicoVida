@@ -3,9 +3,15 @@ using System.Collections;
 
 public class MarkerController : MonoBehaviour {
 
+	public enum State {InMinimumSize, NotInMinimumSize, InCorrectSize}
+
+	public State state;
+
 	public RhythmButtonHit sizeController;
 
 	private SpriteRenderer sprite;
+
+	private Vector3 position;
 
 	// Use this for initialization
 	void Start () {
