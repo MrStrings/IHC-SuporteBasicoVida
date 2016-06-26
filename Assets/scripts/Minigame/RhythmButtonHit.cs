@@ -5,7 +5,6 @@ public class RhythmButtonHit : MonoBehaviour {
 
 	public float min, max;
 	public float speed;
-	public float minimumForPontuation;
 	public float currentValue;
 
 	[HideInInspector]
@@ -14,7 +13,7 @@ public class RhythmButtonHit : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		currentValue = max;
 	}
 
 	// Update is called once per frame
