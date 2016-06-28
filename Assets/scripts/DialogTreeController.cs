@@ -9,7 +9,8 @@ public class DialogTreeController : MonoBehaviour {
 	public Text[] choice;
 
 	float situationNumber = 0;
-
+	float previousSituation;
+	string previousText;
 
 	// Use this for initialization
 	void Start () {
@@ -21,37 +22,49 @@ public class DialogTreeController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (situationNumber == 0) {
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-                situation.text = "A pessoa está respirando?";
-                situationNumber = 1; 
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow)){
-                situation.text = "A pessoa possui algo na boca?";
-                situationNumber = 3;
-            }
-        }
-        else if (situationNumber == 1) {
-            if (Input.GetKeyDown(KeyCode.RightArrow)) {
-                situation.text = "Faça massagem cardiaca";
-                //SceneManager.LoadScene("MinigameMassagem");
-                situationNumber = 2;
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-                situation.text = "Vire a pessoa de lado";
-                //SceneManager.LoadScene("MinigameVira");
-            }
-       }
-       else if (situationNumber == 3) {
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-                situation.text = "Tire essa parada da boca da pessoa";
-                //SceneManager.LoadScene("MinigameTiraBoca");
-                situationNumber = 4;
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-                situation.text = "Verifique a respiração. Verificou?";
-                situationNumber = 0;
-            }
-        }
+		if (situationNumber == 0) {
+			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+				previousSituation = 0;
+				previousText = situation.text;
+				situation.text = "Você tem certeza?";
+				situationNumber = 4;
+			} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				situation.text = "A pessoa possui algo na boca?";
+				situationNumber = 3;
+			}
+		} else if (situationNumber == 1) {
+			if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				situation.text = "Faça massagem cardíaca!";
+				Invoke ("LoadScene", 2);
+				situationNumber = 2;
+			} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+				previousSituation = 1;
+				previousText = situation.text;
+				situation.text = "Você tem certeza?";
+				situationNumber = 4;
+			}
+		} else if (situationNumber == 3) {
+			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+				previousSituation = 3;
+				previousText = situation.text;
+				situation.text = "Você tem certeza?";
+				situationNumber = 4;
+			} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				situation.text = "A pessoa está respirando?";
+				situationNumber = 1;
+			}
+		} else if (situationNumber == 4) {
+			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+				SceneManager.LoadScene ("GameOver");
+			} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				situation.text = previousText;
+				situationNumber = previousSituation;
+			}
+		}
+	}
+
+
+	void LoadScene() {
+		SceneManager.LoadScene ("MinigameMassagem");
 	}
 }

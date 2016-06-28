@@ -17,6 +17,8 @@ public class RhythmButtonHit : MonoBehaviour {
 	public float pressCount;
 
 
+	public AudioClip correctClip, wrongClip;
+
 
 	// Use this for initialization
 	void Start () {
@@ -38,8 +40,14 @@ public class RhythmButtonHit : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			pressCount++;
+
 			if (currentValue > maxForScore) {
 				PointsManager.points -= subtractPointsWhithEarlyPress;
+				AudioSource.PlayClipAtPoint (wrongClip, Vector3.zero);
+			} else if (currentValue != min) {
+				AudioSource.PlayClipAtPoint (correctClip, Vector3.zero);
+			} else {
+				AudioSource.PlayClipAtPoint (wrongClip, Vector3.zero);
 			}
 			currentValue = max;
 		}
@@ -49,5 +57,14 @@ public class RhythmButtonHit : MonoBehaviour {
 			minTimeForPointLoosing = Time.timeSinceLevelLoad;
 			PointsManager.points -= numPointsToLoseWhenLate;
 		}
+	}
+
+
+	void OnDisable() {
+		currentValue = min;
+	}
+
+	void OnEnable() {
+		currentValue = max;
 	}
 }

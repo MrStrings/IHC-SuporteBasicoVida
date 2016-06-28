@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PointsManager : MonoBehaviour {
 
@@ -10,6 +12,8 @@ public class PointsManager : MonoBehaviour {
 
 	public float initialPoints;
 	public bool resetOnSceneLoad;
+
+	public Text pointText;
 
 
 	// Use this for initialization
@@ -22,7 +26,15 @@ public class PointsManager : MonoBehaviour {
 	void Update () {
 		points_local = points;
 		if (points <= 0) {
-			//GAME OVER
+			SceneManager.LoadScene ("GameOver");
 		}
+
+		ShowPoints ();
+	}
+
+
+	void ShowPoints() {
+		if (pointText)
+			pointText.text = "Pontos: " + points;
 	}
 }

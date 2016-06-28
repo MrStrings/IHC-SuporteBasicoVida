@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 public class MinigameController : MonoBehaviour {
 
 	public GameObject breathButton;
-	public float numberOfPressesForBreath, numberOfBreathsBeforeSceneChange;
+	public float numberOfPressesForBreath, numberOfBreathsBeforeSceneChange, hitWindow = 1;
 
-	float breathCount;
+
 
 	RhythmButtonHit button;
+
+	float breathCount;
+	float timeActivateBreathButton;
+
 
 	// Use this for initialization
 	void Start () {
@@ -26,9 +30,11 @@ public class MinigameController : MonoBehaviour {
 
 	void FrequencyControl() {
 		if (breathCount == 3) {
-			//SceneManager.LoadScene ("DecisionTree");
-		} else if (button.pressCount == numberOfPressesForBreath) {
+			SceneManager.LoadScene ("Win!");
+		} else if (button.pressCount == numberOfPressesForBreath && !breathButton.activeInHierarchy) {
 			breathButton.SetActive (true);
+			button.enabled = false;
+			timeActivateBreathButton = Time.timeSinceLevelLoad;
 		}
 
 		if (breathButton.activeInHierarchy) {
@@ -38,13 +44,15 @@ public class MinigameController : MonoBehaviour {
 
 				if (hit && hit.gameObject == breathButton) {
 					breathButton.SetActive (false);
+					button.enabled = true;
+					button.pressCount = 0;
 					breathCount++;
 				}
 			}
 
-			if (breathButton.activeInHierarchy) {
+			if (Time.timeSinceLevelLoad > timeActivateBreathButton + hitWindow && breathButton.activeInHierarchy) {
 				button.pressCount = 0;
-				//Loose points;
+				PointsManager.points--;
 			}
 		}
 	}
